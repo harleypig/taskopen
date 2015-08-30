@@ -67,8 +67,8 @@ unless (-e $cfgfile) {
     my $choice = "inval";
     while ($choice ne "y" &&
            $choice ne "Y" &&
-           $choice ne "n" && 
-           $choice ne "N" && 
+           $choice ne "n" &&
+           $choice ne "N" &&
            $choice ne "")
     {
         print STDOUT qq{Config file "$cfgfile" does not exist. Do you want to create it? (Y/n) };
@@ -97,11 +97,11 @@ NOTES_FOLDER="$HOME/tasknotes/"
 NOTES_EXT=".txt"
 
 # Path to notes file. UUID will be replaced with the actual uuid of
-# the task. If NOTES_CMD 
+# the task. If NOTES_CMD
 # Default is: ${NOTES_FOLDER}UUID${NOTES_EXT}
 #NOTES_FILE="$HOME/tasknotes/UUID.txt"
 
-# Command that opens notes. UUID will be replaced with the actual uuid of 
+# Command that opens notes. UUID will be replaced with the actual uuid of
 # the task.
 # Default is: $EDITOR $NOTES_FILE
 #NOTES_CMD="vim "$HOME/tasknotes/$UUID.txt""
@@ -123,7 +123,7 @@ NOTES_EXT=".txt"
 
 # Regular expression that referes to the NOTES_FILE.
 # Default is: Notes
-#NOTES_REGEX="Notes" 
+#NOTES_REGEX="Notes"
 
 # Regular expression that identifies annotations openable by BROWSER.
 # Default is: www|http
@@ -147,7 +147,7 @@ NOTES_EXT=".txt"
 #NO_ANNOTATION_HOOK=attach.sh
 
 # Make additional taskwarrior attributes available as sort keys and environment variables.
-# E.g. TASK_ATTRIBUTES="project,tags" allows to sort by "task_project" or "task_tags" and to use 
+# E.g. TASK_ATTRIBUTES="project,tags" allows to sort by "task_project" or "task_tags" and to use
 # "$TASK_PROJECT" or "$TASK_TAGS" within your (custom) commands.
 #TASK_ATTRIBUTES=""
 >;
@@ -506,7 +506,7 @@ sub parse_number {
 sub get_filepath {
     my $ann = $_[0];
     my $file = $ann->{"annot"};
-    
+
     if ($file =~ m/^$NOTES_REGEX/ || $ann->{"raw"} =~ m/^$NOTES_REGEX/) {
         $file = $NOTES_FILE;
         $file =~ s/([^\$])UUID/$1$ann->{"uuid"}/g;
@@ -523,7 +523,7 @@ sub raw_edit {
     my $filename = tmpnam();
     open(my $fh, '>', $filename) or die "can't open $filename: $!";
     print($fh $old);
-    close($fh); 
+    close($fh);
 
     system(qq/$EDITOR "$filename"/);
 
@@ -534,7 +534,7 @@ sub raw_edit {
 
     # taskwarrior does not support multi-line annotations
     # TODO fix if #1172 has been solved
-    
+
     my $result = $lines[0];
     chomp($result);
     return $result;
@@ -968,7 +968,7 @@ sub parse_annotations {
                                         print qq/[DEBUG] Skipping existing file "$filepath".\n/;
                                     }
                                     next;
-                                } 
+                                }
                             }
 
                             foreach my $att (@TASK_ATTRIBUTES) {
